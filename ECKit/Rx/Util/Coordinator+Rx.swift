@@ -1,4 +1,4 @@
-import RxSwift
+import RxCocoa
 
 public protocol RxCoordinator: AnyObject {
     
@@ -6,7 +6,7 @@ public protocol RxCoordinator: AnyObject {
     
     var childCoordinators: [AnyObject] { get set }
     
-    func start() -> Single<CoordinationResult>
+    func start() -> Signal<CoordinationResult>
 }
 
 public extension RxCoordinator {
@@ -23,7 +23,7 @@ public extension RxCoordinator {
         }
     }
     
-    func coordinate<T: RxCoordinator>(to coordinator: T) -> Single<T.CoordinationResult> {
+    func coordinate<T: RxCoordinator>(to coordinator: T) -> Signal<T.CoordinationResult> {
         coordinator.start()
             .do(onSubscribe: { [weak self] in
                 self?.add(child: coordinator)
