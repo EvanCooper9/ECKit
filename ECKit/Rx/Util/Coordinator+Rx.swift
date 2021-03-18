@@ -24,11 +24,11 @@ public extension RxCoordinator {
     }
     
     func coordinate<T: RxCoordinator>(to coordinator: T) -> Signal<T.CoordinationResult> {
-        coordinator.start()
-            .do(onSubscribe: { [weak self] in
-                self?.add(child: coordinator)
-            }, onDispose: { [weak self] in
-                self?.remove(child: coordinator)
+        add(child: coordinator)
+        return coordinator.start()
+            .do(onDispose: { [weak self, weak coordinator] in
+                guard let self = self, let coordinator = coordinator else { return }
+                self.remove(child: coordinator)
             })
     }
 }
