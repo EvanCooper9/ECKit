@@ -1,3 +1,3 @@
 # ECKit
 
-A description of this package.
+Collection of common iOS code that I use
