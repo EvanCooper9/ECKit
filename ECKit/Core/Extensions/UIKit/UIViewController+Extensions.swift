@@ -25,7 +25,7 @@ public extension UIViewController {
 }
 
 extension UIViewController {
-    @objc private func adjustForKeyboard(notification: Notification) {
+    @objc func adjustForKeyboard(notification: Notification) {
         guard let scrollView = view.subviews.first(where: { $0 is UIScrollView }) as? UIScrollView else { return }
         guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
 

@@ -18,5 +18,4 @@ Pod::Spec.new do |s|
     ss.dependency 'RxDataSources'
   end
   
-  
 end
