@@ -7,15 +7,16 @@ let package = Package(
     name: "ECKit",
     platforms: [.iOS(.v13)],
     products: [
-        .library(name: "ECKit", targets: ["ECKit"]),
-        .library(name: "ECKit+Rx", targets: ["ECKit+Rx"])
+        .library(name: "ECKit+Core", targets: ["ECKit+Core"]),
+        .library(name: "ECKit+Rx", targets: ["ECKit+Rx"]),
+        .library(name: "ECKit+UI", targets: ["ECKit+UI"])
     ],
     dependencies: [
         .package(url: "https://github.com/RxSwiftCommunity/RxDataSources.git", .upToNextMajor(from: "5.0.0")),
     ],
     targets: [
         .target(
-            name: "ECKit",
+            name: "ECKit+Core",
             dependencies: [],
             path: "ECKit/Core"
         ),
@@ -26,6 +27,11 @@ let package = Package(
                 .product(name: "Differentiator", package: "RxDataSources")
             ],
             path: "ECKit/Rx"
+        ),
+        .target(
+            name: "ECKit+UI",
+            dependencies: [],
+            path: "ECKit/UI"
         )
     ]
 )
