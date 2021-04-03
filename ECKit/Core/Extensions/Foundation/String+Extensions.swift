@@ -1,4 +1,4 @@
-extension String {
+public extension String {
     func removing(suffix: String) -> String {
         guard ends(with: suffix) else { return self }
         return String(dropLast(suffix.count))
