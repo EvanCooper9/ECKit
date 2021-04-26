@@ -30,7 +30,7 @@ let package = Package(
         ),
         .target(
             name: "ECKit+UI",
-            dependencies: [],
+            dependencies: ["ECKit+Core"],
             path: "ECKit/UI"
         )
     ]
