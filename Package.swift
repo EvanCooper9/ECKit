@@ -1,37 +1,48 @@
-// swift-tools-version:5.3
-// The swift-tools-version declares the minimum version of Swift required to build this package.
+// swift-tools-version: 5.6
 
 import PackageDescription
 
 let package = Package(
     name: "ECKit",
-    platforms: [.iOS(.v13)],
+    platforms: [.iOS(.v15)],
     products: [
-        .library(name: "ECKit+Core", targets: ["ECKit+Core"]),
-        .library(name: "ECKit+Rx", targets: ["ECKit+Rx"]),
-        .library(name: "ECKit+UI", targets: ["ECKit+UI"])
+        .library(name: "ECKit", targets: ["ECKit"]),
+        .library(name: "ECKit+Firebase", targets: ["ECKit+Firebase"])
     ],
     dependencies: [
-        .package(url: "https://github.com/RxSwiftCommunity/RxDataSources.git", .upToNextMajor(from: "5.0.0")),
+        // ECKit
+        .package(url: "git@github.com:CombineCommunity/CombineExt.git", from: "1.0.0"),
+        .package(url: "git@github.com:kishikawakatsumi/KeychainAccess.git", from: "4.0.0"),
+        .package(url: "git@github.com:hmlongco/Resolver.git", from: "1.0.0"),
+        .package(url: "git@github.com:hatchcredit/ResolverAutoregistration.git", from: "1.0.0"),
+        .package(url: "git@github.com:SwiftUIX/SwiftUIX.git", branch: "master"),
+
+        // ECKit+Firebase
+        .package(url: "git@github.com:firebase/firebase-ios-sdk.git", from: "9.0.0"),
+        .package(url: "git@github.com:apple/swift-algorithms.git", from: "1.0.0")
     ],
     targets: [
         .target(
-            name: "ECKit+Core",
-            dependencies: [],
-            path: "ECKit/Core"
-        ),
-        .target(
-            name: "ECKit+Rx",
+            name: "ECKit",
             dependencies: [
-                "RxDataSources",
-                .product(name: "Differentiator", package: "RxDataSources")
+                "CombineExt",
+                "KeychainAccess",
+                "Resolver",
+                "ResolverAutoregistration",
+                "SwiftUIX"
             ],
-            path: "ECKit/Rx"
+            exclude: [
+                "swiftgen.yml",
+                "SwiftGen/Templates"
+            ]
         ),
         .target(
-            name: "ECKit+UI",
-            dependencies: ["ECKit+Core"],
-            path: "ECKit/UI"
+            name: "ECKit+Firebase",
+            dependencies: [
+                .product(name: "Algorithms", package: "swift-algorithms"),
+                .product(name: "FirebaseFirestore", package: "firebase-ios-sdk"),
+                "SwiftUIX"
+            ]
         )
     ]
 )

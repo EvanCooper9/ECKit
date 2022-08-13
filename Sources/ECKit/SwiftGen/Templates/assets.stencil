@@ -1,0 +1,40 @@
+// Generated using SwiftGen — https://github.com/SwiftGen/SwiftGen
+// DO NOT EDIT
+import SwiftUI
+import UIKit
+
+// MARK: - SwiftUI
+
+public extension Color {
+    {% macro casesBlock assets %}
+    {% for asset in assets %}
+    {% if asset.type == "color" %}
+    static var {{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}: Self { .init("{{asset.value}}", bundle: .module) }
+    {% elif asset.items %}
+    {% call casesBlock asset.items %}
+    {% endif %}
+    {% endfor %}
+    {% endmacro %}
+    {% for catalog in catalogs %}
+    {% call casesBlock catalog.assets %}
+    {% endfor %}
+}
+
+public extension Image {
+    {% macro casesBlock assets public %}
+    {% for asset in assets %}
+    {% if asset.type == "image" %}
+    {% if public %}public {% endif %}static var {{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}: Image { .init("{{asset.value}}", bundle: .module) }
+    {% elif asset.items and asset.isNamespaced == "true" %}
+    enum {{asset.name|swiftIdentifier:"pretty"|escapeReservedKeywords}} {
+        {% filter indent:4 %}{% call casesBlock asset.items true %}{% endfilter %}
+    }
+    {% elif asset.items %}
+    {% call casesBlock asset.items false %}
+    {% endif %}
+    {% endfor %}
+    {% endmacro %}
+    {% for catalog in catalogs %}
+    {% call casesBlock catalog.assets false %}
+    {% endfor %}
+}

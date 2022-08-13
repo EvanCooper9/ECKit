@@ -1,0 +1,9 @@
+input_dir: Assets
+output_dir: SwiftGen/Output
+
+xcassets:
+  inputs:
+    - Colors.xcassets
+  outputs:
+    templatePath: SwiftGen/Templates/assets.stencil
+    output: Colors.swift
