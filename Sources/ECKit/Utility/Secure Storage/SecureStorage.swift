@@ -3,12 +3,13 @@ import Foundation
 import KeychainAccess
 import SwiftUI
 
-@propertyWrapper struct SecureStorage<Value: Codable>: DynamicProperty {
+@propertyWrapper
+public struct SecureStorage<Value: Codable>: DynamicProperty {
 
     private let publisher = PassthroughSubject<Value, Never>()
     @ObservedObject private var storage: KeychainStorage<Value>
 
-    var wrappedValue: Value {
+    public var wrappedValue: Value {
         get { storage.value }
 
         nonmutating set {
@@ -24,7 +25,7 @@ import SwiftUI
         )
     }
 
-    var projectedValue: AnyPublisher<Value, Never> {
+    public var projectedValue: AnyPublisher<Value, Never> {
         publisher.eraseToAnyPublisher()
     }
 }

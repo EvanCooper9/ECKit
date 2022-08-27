@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-extension Bundle {
+public extension Bundle {
     var icon: UIImage! {
         let icons = infoDictionary!["CFBundleIcons"] as! [String: Any]
         let primaryIcon = icons["CFBundlePrimaryIcon"] as! [String: Any]

@@ -1,7 +1,7 @@
 import SwiftUI
 
-extension View {
-    public func embeddedInNavigationView() -> some View {
+public extension View {
+    func embeddedInNavigationView() -> some View {
         NavigationView {
             self
         }

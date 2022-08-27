@@ -4,16 +4,15 @@ import SwiftUIX
 public extension View {
     @ViewBuilder
     func withLoadingOverlay(isLoading: Bool) -> some View {
-        self
-            .disabled(isLoading)
-            .allowsHitTesting(!isLoading)
-            .overlay {
-                ProgressView()
-                    .padding(.extraExtraLarge)
-                    .background(.systemFill.opacity(0.75))
-                    .cornerRadius(10)
-                    .hidden(!isLoading)
-            }
+        overlay {
+            ProgressView()
+                .padding(.extraExtraLarge)
+                .background(.ultraThinMaterial)
+                .cornerRadius(10)
+                .visible(isLoading)
+        }
+        .disabled(isLoading)
+        .allowsHitTesting(!isLoading)
     }
 }
 

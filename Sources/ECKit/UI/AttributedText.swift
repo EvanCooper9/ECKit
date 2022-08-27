@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct AttributedText: UIViewRepresentable {
+public struct AttributedText: UIViewRepresentable {
 
     let attributedString: NSAttributedString
 
@@ -8,7 +8,7 @@ struct AttributedText: UIViewRepresentable {
         self.attributedString = attributedString
     }
 
-    func makeUIView(context: Context) -> UILabel {
+    public func makeUIView(context: Context) -> UILabel {
         let label = UILabel()
 
         label.lineBreakMode = .byClipping
@@ -17,7 +17,7 @@ struct AttributedText: UIViewRepresentable {
         return label
     }
 
-    func updateUIView(_ uiView: UILabel, context: Context) {
+    public func updateUIView(_ uiView: UILabel, context: Context) {
         uiView.attributedText = attributedString
     }
 }

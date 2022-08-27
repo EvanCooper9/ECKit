@@ -1,3 +1,3 @@
-extension Bool {
-    public var not: Bool { !self }
+public extension Bool {
+    var not: Bool { !self }
 }

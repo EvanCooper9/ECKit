@@ -1,6 +1,6 @@
 import Foundation
 
-extension Date {
+public extension Date {
     func addingTimeInterval(_ timeInterval: Int) -> Date {
         addingTimeInterval(TimeInterval(timeInterval))
     }

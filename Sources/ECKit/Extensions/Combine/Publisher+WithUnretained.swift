@@ -81,8 +81,8 @@ public extension Publisher where Output == Void {
 }
 
 // MARK: - Sink
-public extension Publisher {
 
+public extension Publisher {
     func sink<O: AnyObject>(withUnretained object: O, receiveValue: @escaping ((O, Output) -> Void)) -> AnyCancellable {
         sink { _ in
             // do nothing
@@ -100,6 +100,28 @@ public extension Publisher {
         }, receiveValue: { [weak object] value in
             guard let object = object else { return }
             receiveValue(object, value)
+        })
+    }
+}
+
+public extension Publisher where Output == Void {
+    func sink<O: AnyObject>(withUnretained object: O, receiveValue: @escaping ((O) -> Void)) -> AnyCancellable {
+        sink { _ in
+            // do nothing
+        } receiveValue: { [weak object] output in
+            guard let object = object else { return }
+            receiveValue(object)
+        }
+
+    }
+
+    func sink<O: AnyObject>(withUnretained object: O, receiveCompletion: @escaping ((O, Subscribers.Completion<Failure>) -> Void), receiveValue: @escaping ((O) -> Void)) -> AnyCancellable {
+        sink(receiveCompletion: { [weak object] completion in
+            guard let object = object else { return }
+            receiveCompletion(object, completion)
+        }, receiveValue: { [weak object] value in
+            guard let object = object else { return }
+            receiveValue(object)
         })
     }
 }

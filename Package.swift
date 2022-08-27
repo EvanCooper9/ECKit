@@ -40,6 +40,7 @@ let package = Package(
             name: "ECKit+Firebase",
             dependencies: [
                 .product(name: "Algorithms", package: "swift-algorithms"),
+                "ECKit",
                 .product(name: "FirebaseFirestore", package: "firebase-ios-sdk"),
                 "SwiftUIX"
             ]

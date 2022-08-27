@@ -1,9 +1,11 @@
 import Firebase
 import FirebaseFirestore
 
-final class ListenerBag {
+public final class ListenerBag {
     
     private var registrations = [ListenerRegistration]()
+
+    public init() {}
     
     deinit {
         registrations.forEach {
@@ -11,12 +13,12 @@ final class ListenerBag {
         }
     }
     
-    func store(_ listener: ListenerRegistration) {
+    public func store(_ listener: ListenerRegistration) {
         registrations.append(listener)
     }
 }
 
-extension ListenerRegistration {
+public extension ListenerRegistration {
     func store(in bag: ListenerBag) {
         bag.store(self)
     }

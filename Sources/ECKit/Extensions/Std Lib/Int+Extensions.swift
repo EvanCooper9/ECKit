@@ -7,7 +7,7 @@ extension Int {
     var days: Int { hours * 24 }
 }
 
-extension Int {
+public extension Int {
     var ordinalString: String? {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .ordinal

@@ -1,7 +1,7 @@
 import Combine
 import Foundation
 
-extension Publisher where Failure == Error {
+public extension Publisher where Failure == Error {
     func emitError<Root>(to keyPath: ReferenceWritableKeyPath<Root, Error?>, on object: Root) -> AnyPublisher<Output, Never> {
         self
             .handleEvents(receiveOutput: { _ in
@@ -19,7 +19,7 @@ extension Publisher where Failure == Error {
     }
 }
 
-extension Publisher where Output == String, Failure == Error {
+public extension Publisher where Output == String, Failure == Error {
     func emitResult<Root>(to keyPath: ReferenceWritableKeyPath<Root, Result<String, Error>?>, on object: Root) -> AnyPublisher<Void, Never> {
         self
             .handleEvents(receiveOutput: { string in

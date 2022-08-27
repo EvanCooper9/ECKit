@@ -1,8 +1,8 @@
 import UIKit
 
-extension UICollectionView {
+public extension UICollectionView {
     
-    public enum ElementKind {
+    enum ElementKind {
         case header
         case footer
         
@@ -16,11 +16,11 @@ extension UICollectionView {
         }
     }
     
-    public func register<T: UICollectionViewCell>(cellType: T.Type) {
+    func register<T: UICollectionViewCell>(cellType: T.Type) {
         register(T.self, forCellWithReuseIdentifier: String(describing: T.self))
     }
     
-    public func registerNib<T: UICollectionViewCell>(cellType: T.Type) {
+    func registerNib<T: UICollectionViewCell>(cellType: T.Type) {
         let identifier = String(describing: T.self)
         register(
             UINib(nibName: identifier, bundle: .main),
@@ -28,7 +28,7 @@ extension UICollectionView {
         )
     }
     
-    public func register<T: UICollectionReusableView>(supplementaryViewType: T.Type, elementKind: ElementKind = .header) {
+    func register<T: UICollectionReusableView>(supplementaryViewType: T.Type, elementKind: ElementKind = .header) {
         register(
             T.self,
             forSupplementaryViewOfKind: elementKind.value,
@@ -36,7 +36,7 @@ extension UICollectionView {
         )
     }
     
-    public func registerNib<T: UICollectionReusableView>(supplementaryViewType: T.Type, elementKind: ElementKind = .header) {
+    func registerNib<T: UICollectionReusableView>(supplementaryViewType: T.Type, elementKind: ElementKind = .header) {
         let identifier = String(describing: T.self)
         register(
             UINib(nibName: identifier, bundle: .main),
@@ -45,11 +45,11 @@ extension UICollectionView {
         )
     }
     
-    public func dequeue<T: UICollectionViewCell>(cellType: T.Type, for indexPath: IndexPath) -> T {
+    func dequeue<T: UICollectionViewCell>(cellType: T.Type, for indexPath: IndexPath) -> T {
         dequeueReusableCell(withReuseIdentifier: String(describing: T.self), for: indexPath) as! T
     }
     
-    public func dequeue<T: UICollectionReusableView>(reusableViewType: T.Type, elementKind: ElementKind = .header, for indexPath: IndexPath) -> T {
+    func dequeue<T: UICollectionReusableView>(reusableViewType: T.Type, elementKind: ElementKind = .header, for indexPath: IndexPath) -> T {
         dequeueReusableSupplementaryView(
             ofKind: elementKind.value,
             withReuseIdentifier: String(describing: T.self),

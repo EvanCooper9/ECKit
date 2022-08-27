@@ -1,10 +1,10 @@
 import UIKit
 
-protocol Sharable {
+public protocol Sharable {
     var itemsToShare: [Any] { get }
 }
 
-extension Sharable {
+public extension Sharable {
     func share() {
         let activityVC = UIActivityViewController(
             activityItems: itemsToShare,
