@@ -5,10 +5,10 @@ import SwiftUI
 public struct PhotoPicker: UIViewControllerRepresentable {
 
     @Environment(\.presentationMode) var presentationMode
-    @Binding var image: Data?
+    @Binding var imageData: Data?
 
-    public init(image: Binding<Data?>) {
-        self._image = image
+    public init(imageData: Binding<Data?>) {
+        _imageData = imageData
     }
 
     public func makeUIViewController(context: Context) -> PHPickerViewController {
@@ -40,14 +40,13 @@ public extension PhotoPicker {
 
         public func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
             guard let itemProvider = results.first?.itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) else {
-                print("can't load object")
                 parent.presentationMode.wrappedValue.dismiss()
                 return
             }
             itemProvider.loadObject(ofClass: UIImage.self) { [weak self] object, error in
                 guard let self = self else { return }
                 DispatchQueue.main.async {
-                    self.parent.image = (object as? UIImage)?.pngData()
+                    self.parent.imageData = (object as? UIImage)?.pngData()
                     self.parent.presentationMode.wrappedValue.dismiss()
                 }
             }

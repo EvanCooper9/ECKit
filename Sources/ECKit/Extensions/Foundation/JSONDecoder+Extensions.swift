@@ -2,7 +2,7 @@ import Foundation
 
 public extension JSONDecoder {
 
-    private static let supportedDateFormatters: [DateFormatter] = [
+    static var supportedDateFormatters: [DateFormatter] = [
         .dateDashed,
         .full
     ]

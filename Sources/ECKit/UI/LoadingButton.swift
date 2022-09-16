@@ -19,6 +19,7 @@ public struct LoadingButton: View {
             ProgressView()
                 .hidden(!loading)
         }
+        .disabled(loading)
     }
 }
 

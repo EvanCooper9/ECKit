@@ -3,11 +3,11 @@ import SwiftUIX
 
 public struct DetailRow: View {
 
-    let symbol: SFSymbolName
-    let description: String
-    let value: String
+    private let symbol: SFSymbolName?
+    private let description: String
+    private let value: String
 
-    public init(symbol: SFSymbolName, description: String, value: String) {
+    public init(symbol: SFSymbolName? = nil, description: String, value: String) {
         self.symbol = symbol
         self.description = description
         self.value = value
@@ -15,7 +15,9 @@ public struct DetailRow: View {
 
     public var body: some View {
         HStack {
-            Image(systemName: symbol)
+            if let symbol = symbol {
+                Image(systemName: symbol)
+            }
             Text(description)
             Spacer()
             Text(value)

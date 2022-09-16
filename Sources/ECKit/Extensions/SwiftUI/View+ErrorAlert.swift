@@ -13,6 +13,7 @@ public struct Alert {
 
 struct LocalizedAlertError: LocalizedError {
     let underlyingError: LocalizedError
+
     var errorDescription: String? {
         underlyingError.errorDescription
     }
@@ -29,13 +30,22 @@ struct LocalizedAlertError: LocalizedError {
 public extension View {
     @ViewBuilder
     func errorAlert(error: Binding<Error?>, buttonTitle: String = "OK") -> some View {
-        let localizedAlertError = LocalizedAlertError(error: error.wrappedValue)
-        alert(isPresented: .constant(localizedAlertError != nil), error: localizedAlertError) { _ in
-            Button(buttonTitle) {
-                error.wrappedValue = nil
+        if let localizedAlertError = LocalizedAlertError(error: error.wrappedValue) {
+            alert(isPresented: .constant(true), error: localizedAlertError) { _ in
+                Button(buttonTitle) {
+                    error.wrappedValue = nil
+                }
+            } message: { error in
+                Text(error.recoverySuggestion ?? "")
             }
-        } message: { error in
-            Text(error.recoverySuggestion ?? "")
+        } else {
+            alert("Something went wrong", isPresented: .constant(error.wrappedValue != nil)) {
+                Button(buttonTitle) {
+                    error.wrappedValue = nil
+                }
+            } message: {
+                Text(error.wrappedValue?.localizedDescription ?? "")
+            }
         }
     }
 }
