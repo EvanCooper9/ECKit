@@ -11,16 +11,16 @@ let package = Package(
     ],
     dependencies: [
         // ECKit
-        .package(url: "https://github.com/CombineCommunity/CombineExt", from: "1.0.0"),
-        .package(url: "https://github.com/kishikawakatsumi/KeychainAccess", from: "4.0.0"),
-        .package(url: "https://github.com/hmlongco/Resolver", from: "1.0.0"),
-        .package(url: "https://github.com/hatchcredit/ResolverAutoregistration", from: "1.0.0"),
-        .package(url: "https://github.com/SwiftUIX/SwiftUIX", branch: "master"),
+        .package(url: "git@github.com:CombineCommunity/CombineExt", from: "1.0.0"),
+        .package(url: "git@github.com:kishikawakatsumi/KeychainAccess", from: "4.0.0"),
+        .package(url: "git@github.com:hmlongco/Resolver", from: "1.0.0"),
+        .package(url: "git@github.com:hatchcredit/ResolverAutoregistration", from: "1.0.0"),
+        .package(url: "git@github.com:SwiftUIX/SwiftUIX", branch: "master"),
 
         // ECKit+Firebase
-        .package(url: "https://github.com/alickbass/CodableFirebase", from: "0.2.0"),
-        .package(url: "https://github.com/firebase/firebase-ios-sdk", from: "9.0.0"),
-        .package(url: "https://github.com/apple/swift-algorithms", from: "1.0.0")
+        .package(url: "git@github.com:alickbass/CodableFirebase", from: "0.2.0"),
+        .package(url: "git@github.com:firebase/firebase-ios-sdk", from: "9.0.0"),
+        .package(url: "git@github.com:apple/swift-algorithms", from: "1.0.0")
     ],
     targets: [
         .target(
