@@ -72,7 +72,7 @@ public extension View {
             let binding = Binding<Error?>(get: {
                 error
             }, set: { error in
-                if let error = error {
+                if let error {
                     result.wrappedValue = .failure(error)
                 } else {
                     result.wrappedValue = nil
@@ -83,7 +83,7 @@ public extension View {
             let binding = Binding<Alert?>(get: {
                 message
             }, set: { message in
-                if let message = message {
+                if let message {
                     result.wrappedValue = .success(message)
                 } else {
                     result.wrappedValue = nil

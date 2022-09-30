@@ -15,7 +15,7 @@ public struct DetailRow: View {
 
     public var body: some View {
         HStack {
-            if let symbol = symbol {
+            if let symbol {
                 Image(systemName: symbol)
             }
             Text(description)

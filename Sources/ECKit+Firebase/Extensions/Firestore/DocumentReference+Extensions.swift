@@ -11,7 +11,7 @@ public extension DocumentReference {
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
             do {
                 try setDataEncodable(data) { error in
-                    if let error = error {
+                    if let error {
                         continuation.resume(throwing: error)
                         return
                     }
@@ -31,7 +31,7 @@ public extension DocumentReference {
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
             do {
                 try updateDataEncodable(data) { error in
-                    if let error = error {
+                    if let error {
                         continuation.resume(throwing: error)
                         return
                     }

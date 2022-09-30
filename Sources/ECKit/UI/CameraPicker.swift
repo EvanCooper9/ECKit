@@ -35,7 +35,7 @@ public extension CameraPicker {
 
         public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
             if let uiImage = info[.originalImage] as? UIImage {
-                parent.imageData = uiImage.pngData()
+                parent.imageData = uiImage.fixedOrientation.pngData()
             }
 
             parent.presentationMode.wrappedValue.dismiss()

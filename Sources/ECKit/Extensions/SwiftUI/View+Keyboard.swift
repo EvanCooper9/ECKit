@@ -8,3 +8,14 @@ public extension View {
         }
     }
 }
+
+public extension View {
+    func showKeyboardDismissToolbar() -> some View {
+        toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Text("Done").hideKeyboardOnTap()
+            }
+        }
+    }
+}

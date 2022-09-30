@@ -4,8 +4,8 @@ import SwiftUI
 
 public struct PhotoPicker: UIViewControllerRepresentable {
 
-    @Environment(\.presentationMode) var presentationMode
-    @Binding var imageData: Data?
+    @Environment(\.presentationMode) private var presentationMode
+    @Binding private var imageData: Data?
 
     public init(imageData: Binding<Data?>) {
         _imageData = imageData
@@ -46,7 +46,7 @@ public extension PhotoPicker {
             itemProvider.loadObject(ofClass: UIImage.self) { [weak self] object, error in
                 guard let self = self else { return }
                 DispatchQueue.main.async {
-                    self.parent.imageData = (object as? UIImage)?.pngData()
+                    self.parent.imageData = (object as? UIImage)?.fixedOrientation.pngData()
                     self.parent.presentationMode.wrappedValue.dismiss()
                 }
             }
