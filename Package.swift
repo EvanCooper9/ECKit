@@ -17,9 +17,9 @@ let package = Package(
         .package(url: "https://github.com/SwiftUIX/SwiftUIX", branch: "master"),
 
         // ECKit+Firebase
-        .package(url: "htttps://github.com/alickbass/CodableFirebase", from: "0.2.0"),
+        .package(url: "https://github.com/alickbass/CodableFirebase", from: "0.2.0"),
         .package(url: "https://github.com/firebase/firebase-ios-sdk", from: "10.0.0"),
-        .package(url: "htttps://github.com/apple/swift-algorithms", from: "1.0.0")
+        .package(url: "https://github.com/apple/swift-algorithms", from: "1.0.0")
     ],
     targets: [
         .target(
