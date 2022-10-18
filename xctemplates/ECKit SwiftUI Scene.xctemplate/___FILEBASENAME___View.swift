@@ -1,12 +1,12 @@
-import Resolver
 import SwiftUI
 
 struct ___VARIABLE_productName___View: View {
 
-    @StateObject private var viewModel = Resolver.resolve(___VARIABLE_productName___ViewModel.self)
+    @StateObject private var viewModel = ___VARIABLE_productName___ViewModel()
 
 //    init() {
-//        let viewModel = Resolver.resolve(___VARIABLE_productName___ViewModel.self, args: )
+//        let viewModel = ___VARIABLE_productName___ViewModel()
+//        _viewModel = .init(wrappedValue: viewModel)
 //    }
 
     var body: some View {
