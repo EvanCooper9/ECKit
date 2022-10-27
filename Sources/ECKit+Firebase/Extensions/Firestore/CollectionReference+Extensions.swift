@@ -29,6 +29,7 @@ public extension CollectionReference {
     private func whereFieldWithChunkingHelper(_ field: String, values: [Any], contains: Bool) async throws -> [QueryDocumentSnapshot] {
         try await withThrowingTaskGroup(of: [QueryDocumentSnapshot].self) { group -> [QueryDocumentSnapshot] in
             values.chunks(ofCount: Constants.chunkSize).forEach { chunk in
+                guard !chunk.isEmpty else { return }
                 group.addTask { [weak self] in
                     guard let self = self else { return [] }
                     let query = contains ?
