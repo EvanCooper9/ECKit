@@ -1,12 +1,6 @@
-//
-//  ContentViewController.swift
-//  Popovers
-//
-//  Copyright © 2021 PSPDFKit GmbH. All rights reserved.
-//
-
 import SwiftUI
 
+// https://pspdfkit.com/blog/2022/presenting-popovers-on-iphone-with-swiftui/
 class ContentViewController<V: View>: UIHostingController<V>, UIPopoverPresentationControllerDelegate {
     var isPresented: Binding<Bool>
     

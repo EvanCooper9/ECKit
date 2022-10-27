@@ -1,12 +1,6 @@
-//
-//  UIView+Extension.swift
-//  Popovers
-//
-//  Copyright © 2021 PSPDFKit GmbH. All rights reserved.
-//
-
 import UIKit
 
+// https://pspdfkit.com/blog/2022/presenting-popovers-on-iphone-with-swiftui/
 extension UIView {
     func closestVC() -> UIViewController? {
         var responder: UIResponder? = self

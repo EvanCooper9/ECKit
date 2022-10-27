@@ -1,11 +1,11 @@
-//
-//  AlwaysPopoverModifier.swift
-//  Popovers
-//
-//  Copyright © 2021 PSPDFKit GmbH. All rights reserved.
-//
-
 import SwiftUI
+
+// https://pspdfkit.com/blog/2022/presenting-popovers-on-iphone-with-swiftui/
+public extension View {
+    func alwaysPopover<Content: View>(isPresented: Binding<Bool>, @ViewBuilder content: @escaping () -> Content) -> some View {
+        modifier(AlwaysPopoverModifier(isPresented: isPresented, content: content))
+    }
+}
 
 struct AlwaysPopoverModifier<PopoverContent>: ViewModifier where PopoverContent: View {
     
