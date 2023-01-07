@@ -27,23 +27,26 @@ struct AlwaysPopoverModifier<PopoverContent>: ViewModifier where PopoverContent:
     }
     
     private func presentPopover() {
+        let view = store.anchorView
+        guard let sourceVC = view.closestVC(), sourceVC.presentedViewController == nil else { return }
+        
         let contentController = ContentViewController(rootView: content(), isPresented: isPresented)
         contentController.modalPresentationStyle = .popover
         
-        let view = store.anchorView
         guard let popover = contentController.popoverPresentationController else { return }
         popover.sourceView = view
         popover.sourceRect = view.bounds
+        popover.permittedArrowDirections = [.up, .down]
+        popover.backgroundColor = .systemBlue
         popover.delegate = contentController
-        
-        guard let sourceVC = view.closestVC() else { return }
-        if let presentedVC = sourceVC.presentedViewController {
-            presentedVC.dismiss(animated: true) {
-                sourceVC.present(contentController, animated: true)
-            }
-        } else {
-            sourceVC.present(contentController, animated: true)
-        }
+//        if let presentedVC = sourceVC.presentedViewController {
+//            presentedVC.dismiss(animated: true) {
+//                sourceVC.present(contentController, animated: true)
+//            }
+//        } else {
+//            sourceVC.present(contentController, animated: true)
+//        }
+        sourceVC.present(contentController, animated: true)
     }
     
     private struct InternalAnchorView: UIViewRepresentable {

@@ -1,38 +1,43 @@
 import SwiftUI
+import SwiftUIX
 
 public struct Card<Content: View>: View {
 
     private var axis: Axis
+    @ViewBuilder private var content: () -> Content
+    private var includeEdgePadding: Bool
     private var horizontalAlignment: HorizontalAlignment
     private var verticalAlignment: VerticalAlignment
-    @ViewBuilder private var content: () -> Content
 
     @Environment(\.colorScheme) var colorScheme
 
-    public init(_ axis: Axis = .vertical, @ViewBuilder content: @escaping () -> Content) {
+    public init(_ axis: Axis = .vertical, includeEdgePadding: Bool = true, @ViewBuilder content: @escaping () -> Content) {
         self.axis = axis
         self.content = content
+        self.includeEdgePadding = includeEdgePadding
         self.horizontalAlignment = .center
         self.verticalAlignment = .center
     }
 
-    public init(alignment: HorizontalAlignment, @ViewBuilder content: @escaping () -> Content) {
+    public init(alignment: HorizontalAlignment, includeEdgePadding: Bool = true, @ViewBuilder content: @escaping () -> Content) {
         self.axis = .vertical
         self.content = content
+        self.includeEdgePadding = includeEdgePadding
         self.horizontalAlignment = alignment
         self.verticalAlignment = .center
     }
 
-    public init(alignment: VerticalAlignment, @ViewBuilder content: @escaping () -> Content) {
+    public init(alignment: VerticalAlignment, includeEdgePadding: Bool = true, @ViewBuilder content: @escaping () -> Content) {
         self.axis = .horizontal
         self.content = content
+        self.includeEdgePadding = includeEdgePadding
         self.horizontalAlignment = .center
         self.verticalAlignment = alignment
     }
 
     public var body: some View {
         mainContent
-            .padding()
+            .if(includeEdgePadding) { $0.padding() }
             .background(colorScheme.cardBackgroundColor)
             .cornerRadius(8)
             .shadow(color: .gray.opacity(0.15), radius: 10)

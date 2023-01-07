@@ -5,8 +5,7 @@ struct ___VARIABLE_productName___View: View {
     @StateObject private var viewModel = ___VARIABLE_productName___ViewModel()
 
 //    init() {
-//        let viewModel = ___VARIABLE_productName___ViewModel()
-//        _viewModel = .init(wrappedValue: viewModel)
+//        _viewModel = .init(wrappedValue: ___VARIABLE_productName___ViewModel())
 //    }
 
     var body: some View {

@@ -45,9 +45,9 @@ public extension PhotoPicker {
             }
             itemProvider.loadObject(ofClass: UIImage.self) { [weak self] object, error in
                 guard let self = self else { return }
+                self.parent.presentationMode.wrappedValue.dismiss()
                 DispatchQueue.main.async {
-                    self.parent.imageData = (object as? UIImage)?.fixedOrientation.pngData()
-                    self.parent.presentationMode.wrappedValue.dismiss()
+                    self.parent.imageData = (object as? UIImage)?.fixedOrientation.jpegData(compressionQuality: 0.25)
                 }
             }
         }

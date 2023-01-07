@@ -6,6 +6,7 @@ import UIKit
 // MARK: - SwiftUI
 
 public extension Color {
+    static var alertBackground: Self { .init("alertBackground", bundle: .module) }
     static var listBackground: Self { .init("listBackground", bundle: .module) }
 }
 

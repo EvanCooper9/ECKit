@@ -21,7 +21,7 @@ public struct UserDefault<Value: Codable>: DynamicProperty {
 
     // MARK: - Private Properties
 
-    private let subject = PassthroughSubject<Value, Never>()
+    private let subject: CurrentValueSubject<Value, Never>
     private let storage = UserDefaults.standard
     private let key: String
     private let defaultValue: Value
@@ -31,5 +31,6 @@ public struct UserDefault<Value: Codable>: DynamicProperty {
     public init(wrappedValue: Value, _ key: String) {
         self.defaultValue = wrappedValue
         self.key = key
+        self.subject = .init(wrappedValue)
     }
 }

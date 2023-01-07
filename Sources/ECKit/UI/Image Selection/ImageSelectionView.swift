@@ -87,7 +87,7 @@ public struct ImageSelectionView: View {
     private var image: some View {
         if let imageData {
             Color.clear
-                .aspectRatio(1, contentMode: .fit)
+//                .aspectRatio(1, contentMode: .fit)
                 .overlay {
                     Image(data: imageData)?
                         .resizable()
@@ -105,7 +105,7 @@ public struct ImageSelectionView: View {
             }
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .aspectRatio(1, contentMode: .fit)
+//            .aspectRatio(1, contentMode: .fit)
             .overlay {
                 RoundedRectangle(cornerRadius: 10)
                     .strokeBorder(.gray.opacity(0.5), style: StrokeStyle(lineWidth: 1, dash: [5], dashPhase: 0))

@@ -4,33 +4,34 @@ public struct ImageSelectionStack: View {
 
     @Binding var imageDatas: [Data]
     let max: Int
+    
+    @State private var internalImageDatas: [Data?]
 
     public init(imageDatas: Binding<[Data]>, max: Int) {
+        internalImageDatas = Array(repeating: Data?.none, count: max)
         _imageDatas = imageDatas
         self.max = max
+        
+        internalImageDatas.insert(contentsOf: imageDatas.wrappedValue, at: 0)
+        for _ in 0..<(max - internalImageDatas.count) {
+            internalImageDatas.append(nil)
+        }
     }
 
     public var body: some View {
         HStack {
             ForEach(0..<max, id: \.self) { index in
                 let binding: Binding<Data?> = .init {
-                    guard imageDatas.count > index else { return nil }
-                    return imageDatas[index]
-                } set: { data in
-                    if let data {
-                        if imageDatas.count > index {
-                            imageDatas.insert(data, at: index)
-                        } else {
-                            imageDatas.append(data)
-                        }
-                    } else {
-                        imageDatas.remove(at: index)
-                    }
+                    internalImageDatas[index]
+                } set: {
+                    internalImageDatas[index] = $0
                 }
 
                 ImageSelectionView(imageData: binding)
+                    .aspectRatio(1, contentMode: .fit)
             }
         }
+        .onChange(of: internalImageDatas) { imageDatas = $0.compactMap { $0 } }
     }
 }
 

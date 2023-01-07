@@ -14,10 +14,8 @@ class ContentViewController<V: View>: UIHostingController<V>, UIPopoverPresentat
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
+        super.viewDidLoad()        
         let size = sizeThatFits(in: UIView.layoutFittingExpandedSize)
-        print(size)
         preferredContentSize = size
     }
     
