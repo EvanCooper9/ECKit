@@ -1,15 +1,15 @@
-import CodableFirebase
 import ECKit
 import Firebase
 import FirebaseFirestore
 
 public extension DocumentSnapshot {
 
-    private static let decoder = FirestoreDecoder()
+    private static let decoder = JSONDecoder()
 
     func decoded<T: Decodable>(as type: T.Type) throws -> T {
         do {
-            return try DocumentSnapshot.decoder.decode(T.self, from: data() ?? [:])
+            let json = try JSONSerialization.data(withJSONObject: data() ?? [:])
+            return try DocumentSnapshot.decoder.decode(T.self, from: json)
         } catch {
             print(error)
             throw error

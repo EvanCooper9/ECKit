@@ -17,8 +17,7 @@ let package = Package(
         .package(url: "https://github.com/SwiftUIX/SwiftUIX", branch: "master"),
 
         // ECKit+Firebase
-        .package(url: "https://github.com/alickbass/CodableFirebase", from: "0.2.0"),
-        .package(url: "https://github.com/firebase/firebase-ios-sdk", from: "10.0.0"),
+        .package(url: "https://github.com/akaffenberger/firebase-ios-sdk-xcframeworks", from: "10.0.0"),
         .package(url: "https://github.com/apple/swift-algorithms", from: "1.0.0")
     ],
     targets: [
@@ -39,10 +38,9 @@ let package = Package(
             name: "ECKit+Firebase",
             dependencies: [
                 .product(name: "Algorithms", package: "swift-algorithms"),
-                "CodableFirebase",
                 "ECKit",
-                .product(name: "FirebaseFirestore", package: "firebase-ios-sdk"),
-                .product(name: "FirebaseFunctions", package: "firebase-ios-sdk"),
+                .product(name: "FirebaseFirestore", package: "firebase-ios-sdk-xcframeworks"),
+                .product(name: "FirebaseFunctions", package: "firebase-ios-sdk-xcframeworks"),
                 "SwiftUIX"
             ]
         )
