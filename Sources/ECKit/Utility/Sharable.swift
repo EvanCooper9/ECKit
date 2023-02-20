@@ -1,13 +1,13 @@
 import UIKit
 
 public protocol Sharable {
-    var itemsToShare: [Any] { get }
+    var itemsForSharing: [Any] { get }
 }
 
 public extension Sharable {
     func share() {
         let activityVC = UIActivityViewController(
-            activityItems: itemsToShare,
+            activityItems: itemsForSharing,
             applicationActivities: nil
         )
         activityVC.excludedActivityTypes = [.mail, .saveToCameraRoll, .print]
