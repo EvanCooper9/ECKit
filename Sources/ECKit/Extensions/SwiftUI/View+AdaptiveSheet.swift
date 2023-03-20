@@ -1,3 +1,4 @@
+#if canImport(UIKit)
 import SwiftUI
 import UIKit
 
@@ -148,31 +149,27 @@ class CustomSheetViewController<Content: View>: UIViewController {
 
 struct CustomSheetView_Previews: PreviewProvider {
 
-    struct Preview: View {
-        @State private var isPresented = false
-
+    private struct Preview: View {
+        
+        @State private var height: CGFloat = 350
+        
         var body: some View {
-            VStack{
-                Button("Present sheet") {
-                    isPresented.toggle()
-                }
-                .adaptiveSheet(isPresented: $isPresented, detents: [.medium()], smallestUndimmedDetentIdentifier: .large){
-                    Rectangle()
-                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                        .foregroundColor(.clear)
-                        .border(Color.blue, width: 3)
-                        .padding()
-                        .overlay {
-                            Button("Dismiss sheet") {
-                                isPresented.toggle()
-                            }
-                        }
+            ZStack {
+                RoundedRectangle(cornerRadius: 10)
+                    .strokeBorder(Color.blue)
+                    .padding(.small)
+                Button("Change height") {
+                    height = .random(in: 200...500)
                 }
             }
+            .height(height)
         }
     }
 
     static var previews: some View {
-        Preview()
+        Text("Preview").adaptiveSheet(isPresented: .constant(true)) {
+            Preview()
+        }
     }
 }
+#endif

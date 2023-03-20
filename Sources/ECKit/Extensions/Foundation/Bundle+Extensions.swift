@@ -1,14 +1,6 @@
 import Foundation
-import UIKit
 
 public extension Bundle {
-    var icon: UIImage! {
-        let icons = infoDictionary!["CFBundleIcons"] as! [String: Any]
-        let primaryIcon = icons["CFBundlePrimaryIcon"] as! [String: Any]
-        let iconFiles = primaryIcon["CFBundleIconFiles"] as! [String]
-        return UIImage(named: iconFiles.last!)
-    }
-
     var name: String {
         infoDictionary!["CFBundleName"] as! String
     }
@@ -22,7 +14,19 @@ public extension Bundle {
     }
 
     var id: String {
-        let id = infoDictionary!["CFBundleIdentifier"] as! String
-        return id.before(suffix: ".debug") ?? id
+        infoDictionary!["CFBundleIdentifier"] as! String
     }
 }
+
+#if canImport(UIKit)
+import UIKit
+
+public extension Bundle {
+    var icon: UIImage! {
+        let icons = infoDictionary!["CFBundleIcons"] as! [String: Any]
+        let primaryIcon = icons["CFBundlePrimaryIcon"] as! [String: Any]
+        let iconFiles = primaryIcon["CFBundleIconFiles"] as! [String]
+        return UIImage(named: iconFiles.last!)
+    }
+}
+#endif
