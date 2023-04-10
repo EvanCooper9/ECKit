@@ -2,20 +2,20 @@ import Combine
 
 // MARK: - Flat Map Latest
 public extension Publisher {
-    func flatMapLatest<T, O: AnyObject>(withUnretained object: O, _ transform: @escaping (O, Output) -> AnyPublisher<T, Failure>) -> AnyPublisher<T, Failure> {
+    func flatMapLatest<T, O: AnyObject>(withUnretained object: O, _ transform: @escaping (O, Output) -> some Publisher<T, Failure>) -> AnyPublisher<T, Failure> {
         flatMapLatest { [weak object] value -> AnyPublisher<T, Failure> in
             guard let object else { return .never() }
-            return transform(object, value)
+            return transform(object, value).eraseToAnyPublisher()
         }
         .eraseToAnyPublisher()
     }
 }
 
 public extension Publisher where Output == Void {
-    func flatMapLatest<T, O: AnyObject>(withUnretained object: O, _ transform: @escaping (O) -> AnyPublisher<T, Failure>) -> AnyPublisher<T, Failure> {
+    func flatMapLatest<T, O: AnyObject>(withUnretained object: O, _ transform: @escaping (O) -> some Publisher<T, Failure>) -> AnyPublisher<T, Failure> {
         flatMapLatest { [weak object] _ -> AnyPublisher<T, Failure> in
             guard let object else { return .never() }
-            return transform(object)
+            return transform(object).eraseToAnyPublisher()
         }
         .eraseToAnyPublisher()
     }
