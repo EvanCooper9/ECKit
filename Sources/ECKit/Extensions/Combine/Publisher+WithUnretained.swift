@@ -9,11 +9,27 @@ public extension Publisher {
         }
         .eraseToAnyPublisher()
     }
+
+    func flatMap<T, O: AnyObject>(withUnretained object: O, _ transform: @escaping (O, Output) -> some Publisher<T, Failure>) -> AnyPublisher<T, Failure> {
+        flatMap { [weak object] value -> AnyPublisher<T, Failure> in
+            guard let object else { return .never() }
+            return transform(object, value).eraseToAnyPublisher()
+        }
+        .eraseToAnyPublisher()
+    }
 }
 
 public extension Publisher where Output == Void {
     func flatMapLatest<T, O: AnyObject>(withUnretained object: O, _ transform: @escaping (O) -> some Publisher<T, Failure>) -> AnyPublisher<T, Failure> {
         flatMapLatest { [weak object] _ -> AnyPublisher<T, Failure> in
+            guard let object else { return .never() }
+            return transform(object).eraseToAnyPublisher()
+        }
+        .eraseToAnyPublisher()
+    }
+
+    func flatMap<T, O: AnyObject>(withUnretained object: O, _ transform: @escaping (O) -> some Publisher<T, Failure>) -> AnyPublisher<T, Failure> {
+        flatMap { [weak object] _ -> AnyPublisher<T, Failure> in
             guard let object else { return .never() }
             return transform(object).eraseToAnyPublisher()
         }
