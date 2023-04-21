@@ -1,29 +1,27 @@
 import Combine
 
-public extension Publisher where Failure == Error {
-    static func fromAsync(_ function: @escaping () async throws -> Output) -> AnyPublisher<Output, Failure> {
-        let subject = PassthroughSubject<Output, Failure>()
-        Task {
-            do {
-                subject.send(try await function())
-            } catch {
-                subject.send(completion: .failure(error))
+public extension Publisher where Failure == Never {
+    static func fromAsync(execute: @escaping () async -> Output) -> some Publisher<Output, Failure> {
+        Future { promise in
+            Task {
+                let result = await execute()
+                promise(.success(result))
             }
         }
-        return subject
-            .first()
-            .eraseToAnyPublisher()
     }
 }
 
-public extension Publisher where Failure == Never {
-    static func fromAsync(_ function: @escaping () async -> Output) -> AnyPublisher<Output, Never> {
-        let subject = PassthroughSubject<Output, Failure>()
-        Task {
-            subject.send(await function())
+public extension Publisher where Failure == Error {
+    static func fromAsync(execute: @escaping () async throws -> Output) -> some Publisher<Output, Failure> {
+        Future { promise in
+            Task {
+                do {
+                    let result = try await execute()
+                    promise(.success(result))
+                } catch {
+                    promise(.failure(error))
+                }
+            }
         }
-        return subject
-            .first()
-            .eraseToAnyPublisher()
     }
 }
