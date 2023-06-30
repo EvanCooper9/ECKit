@@ -30,3 +30,7 @@ public extension Array where Element: Equatable {
         contains(element) ? remove(element) : append(element)
     }
 }
+
+public extension Array where Element: Collection {
+    func flattened() -> [Element.Element] { reduce([], +) }
+}

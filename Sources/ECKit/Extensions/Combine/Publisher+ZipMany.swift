@@ -1,13 +1,15 @@
 import Combine
 
 public extension Publishers {
+
+    @available(iOS 16.0.0, *)
     struct ZipMany<Element, F: Error>: Publisher {
         public typealias Output = [Element]
         public typealias Failure = F
 
-        private let upstreams: [AnyPublisher<Element, F>]
+        private let upstreams: [any Publisher<Element, F>]
 
-        public init(_ upstreams: [AnyPublisher<Element, F>]) {
+        public init(_ upstreams: [any Publisher<Element, F>]) {
             self.upstreams = upstreams
         }
 
@@ -17,7 +19,7 @@ public extension Publishers {
                 .eraseToAnyPublisher()
 
             let zipped = upstreams.reduce(into: initial) { result, upstream in
-                result = result.zip(upstream) { elements, element in
+                result = result.zip(upstream.eraseToAnyPublisher()) { elements, element in
                     elements + [element]
                 }
                 .eraseToAnyPublisher()
