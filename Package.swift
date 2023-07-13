@@ -13,6 +13,7 @@ let package = Package(
         .package(url: "https://github.com/CombineCommunity/CombineExt", from: "1.0.0"),
         .package(url: "https://github.com/kishikawakatsumi/KeychainAccess", from: "4.0.0"),
         .package(url: "https://github.com/SwiftUIX/SwiftUIX", branch: "master"),
+        .package(url: "https://github.com/aheze/Popovers", branch: "main")
     ],
     targets: [
         .target(
@@ -20,7 +21,8 @@ let package = Package(
             dependencies: [
                 "CombineExt",
                 "KeychainAccess",
-                "SwiftUIX"
+                "SwiftUIX",
+                "Popovers"
             ],
             exclude: [
                 "swiftgen.yml",

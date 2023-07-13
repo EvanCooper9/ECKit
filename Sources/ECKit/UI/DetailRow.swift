@@ -26,8 +26,13 @@ public struct DetailRow: View {
     }
 }
 
+#if DEBUG
 struct DetailRow_Previews: PreviewProvider {
     static var previews: some View {
         DetailRow(symbol: .envelope, description: "email", value: "email@example.com")
+            .padding(.extraSmall)
+            .card()
+            .padding()
     }
 }
+#endif

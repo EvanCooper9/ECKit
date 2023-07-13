@@ -2,7 +2,7 @@ import SwiftUI
 
 @available(iOS 16, *)
 public extension View {
-    func fittedDetents(defaultDetents: Set<PresentationDetent> = [.large]) -> some View {
+    func fittedDetents(defaultDetents: Set<PresentationDetent>? = nil) -> some View {
         FittedDetentsContainer(content: self, defaultDetents: defaultDetents)
     }
 }
@@ -11,23 +11,20 @@ public extension View {
 private struct FittedDetentsContainer<Content: View>: View {
     
     let content: Content
-    let defaultDetents: Set<PresentationDetent>
+    let defaultDetents: Set<PresentationDetent>?
     
     @State private var contentSize: CGSize?
     private var presentationDetents: Set<PresentationDetent> {
-        guard let contentSize else { return defaultDetents }
+        guard let contentSize else {
+            guard let defaultDetents else { return [.height(.zero)] }
+            return defaultDetents
+        }
         return [.height(contentSize.height)]
     }
     
     var body: some View {
         content
-            .background {
-                GeometryReader { proxy in
-                    Color.clear
-                        .onChangeOfFrame { contentSize = $0 }
-                        .onAppear { contentSize = proxy.size }
-                }
-            }
+            .readSize { contentSize = $0 }
             .presentationDetents(presentationDetents)
     }
 }

@@ -80,14 +80,24 @@ public struct CustomListSection<Content: View, Header: View, Footer: View>: View
 }
 
 #if DEBUG
-struct ScrollViewListSection_Previews: PreviewProvider {
+struct CustomListSection_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            ScrollView {
+            CustomList {
                 CustomListSection {
                     Text("Content 1")
                     Text("Content 2")
                     Text("Content 3")
+                } header: {
+                    Text("Header")
+                } footer: {
+                    Text("Footer")
+                }
+
+                CustomListSection {
+                    ForEach(["Content 1", "Content 2", "Content 3"], id: \.self) { text in
+                        Text(text)
+                    }
                 } header: {
                     Text("Header")
                 } footer: {
@@ -102,6 +112,16 @@ struct ScrollViewListSection_Previews: PreviewProvider {
                     Text("Content 1")
                     Text("Content 2")
                     Text("Content 3")
+                } header: {
+                    Text("Header")
+                } footer: {
+                    Text("Footer")
+                }
+
+                Section {
+                    ForEach(["Content 1", "Content 2", "Content 3"], id: \.self) { text in
+                        Text(text)
+                    }
                 } header: {
                     Text("Header")
                 } footer: {

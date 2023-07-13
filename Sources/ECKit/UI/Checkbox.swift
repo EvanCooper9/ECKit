@@ -21,6 +21,7 @@ public struct Checkbox: View {
     }
 }
 
+#if DEBUG
 struct Checkbox_Previews: PreviewProvider {
 
     private struct Preview: View {
@@ -40,3 +41,4 @@ struct Checkbox_Previews: PreviewProvider {
         Preview()
     }
 }
+#endif

@@ -1,6 +1,12 @@
 import SwiftUI
 
-public struct MatchWidthGroup<Content: View>: View {
+public extension View {
+    func matchWidth(width: Binding<CGFloat?>) -> some View {
+        modifier(MatchWidthModifier(width: width))
+    }
+}
+
+private struct MatchWidthGroup<Content: View>: View {
 
     private var content: () -> Content
     @State private var width: CGFloat?
@@ -17,13 +23,7 @@ public struct MatchWidthGroup<Content: View>: View {
     }
 }
 
-public extension View {
-    func matchWidth(width: Binding<CGFloat?>) -> some View {
-        modifier(MatchWidthModifier(width: width))
-    }
-}
-
-public struct MatchWidthModifier: ViewModifier {
+private struct MatchWidthModifier: ViewModifier {
     @Binding var width: CGFloat?
 
     public func body(content: Content) -> some View {

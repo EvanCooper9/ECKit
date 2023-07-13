@@ -54,6 +54,26 @@ public struct Card<Content: View>: View {
     }
 }
 
+public extension View {
+    func card(_ axis: Axis = .vertical, includeEdgePadding: Bool = true) -> some View {
+        Card(axis, includeEdgePadding: includeEdgePadding) {
+            self
+        }
+    }
+    
+    func card(alignment: HorizontalAlignment, includeEdgePadding: Bool = true) -> some View {
+        Card(alignment: alignment, includeEdgePadding: includeEdgePadding) {
+            self
+        }
+    }
+
+    func card(alignment: VerticalAlignment, includeEdgePadding: Bool = true) -> some View {
+        Card(alignment: alignment, includeEdgePadding: includeEdgePadding) {
+            self
+        }
+    }
+}
+
 struct Card_Previews: PreviewProvider {
     static var previews: some View {
         Card {
