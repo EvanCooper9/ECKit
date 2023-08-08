@@ -3,8 +3,6 @@ import SwiftUI
 @available(iOS 16.0, *)
 public struct ItemStack<Model: Identifiable, ModelContent: View>: View {
 
-    @Namespace private var animation
-
     private let models: [Model]
     private let maxDepth: Int
     @ViewBuilder private let modelContent: (Model) -> ModelContent
@@ -23,7 +21,6 @@ public struct ItemStack<Model: Identifiable, ModelContent: View>: View {
             ForEach(enumerated: models) { index, model in
                 modelContent(model)
                     .padding(.bottom, expanded ? 0 : CGFloat((models.count - index - 1) * 10))
-//                    .padding(.horizontal, expanded ? 0 : CGFloat(index * 10))
                     .scaleEffect(expanded ? 1 : 1.0 - (CGFloat(index) * 0.05))
                     .zIndex(Double(models.count - index))
             }
@@ -54,8 +51,6 @@ struct ItemStack_Previews: PreviewProvider {
             Model(text: "Second model", color: .blue),
             Model(text: "Third model", color: .green),
             Model(text: "Fourth model", color: .red)
-//            Model(text: "Fifth model", color: .blue),
-//            Model(text: "Sixth model", color: .green)
         ]
 
         var body: some View {

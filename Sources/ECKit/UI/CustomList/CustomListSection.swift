@@ -46,11 +46,15 @@ public struct CustomListSection<Content: View, Header: View, Footer: View>: View
     public var body: some View {
         VStack(alignment: .leading) {
             if let header {
-                header()
-                    .foregroundColor(.secondaryLabel)
+                let builtHeader = header()
+                builtHeader
+                    .if(type(of: builtHeader) == Text.self) {
+                        $0.foregroundColor(.secondaryLabel)
+                    }
                     .font(.footnote)
                     .textCase(.uppercase)
                     .padding(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
 
             VStack(spacing: 0) {
@@ -69,10 +73,14 @@ public struct CustomListSection<Content: View, Header: View, Footer: View>: View
 
 
             if let footer {
-                footer()
-                    .foregroundColor(.secondaryLabel)
+                let builtFooter = footer()
+                builtFooter
+                    .if(type(of: builtFooter) == Text.self) {
+                        $0.foregroundColor(.secondaryLabel)
+                    }
                     .font(.footnote)
                     .padding(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
         .padding()
@@ -91,7 +99,10 @@ struct CustomListSection_Previews: PreviewProvider {
                 } header: {
                     Text("Header")
                 } footer: {
-                    Text("Footer")
+//                    Text("Footer")
+                    Button("Footer") {
+
+                    }
                 }
 
                 CustomListSection {
@@ -115,7 +126,9 @@ struct CustomListSection_Previews: PreviewProvider {
                 } header: {
                     Text("Header")
                 } footer: {
-                    Text("Footer")
+                    Button("Footer") {
+
+                    }
                 }
 
                 Section {

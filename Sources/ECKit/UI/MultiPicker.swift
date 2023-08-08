@@ -40,6 +40,8 @@ public struct MultiPicker<Selection: CustomStringConvertible & Hashable & Identi
                     Text(selection.map(\.description).joined(separator: ", "))
                         .lineLimit(1)
                         .foregroundColor(.gray)
+                } else {
+                    Text("Select...")
                 }
             }
         }
