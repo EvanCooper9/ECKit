@@ -38,7 +38,7 @@ public struct Card<Content: View>: View {
     public var body: some View {
         mainContent
             .if(includeEdgePadding) { $0.padding() }
-            .background(colorScheme.cardBackgroundColor)
+            .background(.tertiarySystemBackground)
             .cornerRadius(8)
             .shadow(color: .gray.opacity(0.15), radius: 10)
     }
@@ -89,7 +89,7 @@ private extension ColorScheme {
         case .light:
             return .white
         case .dark:
-            return .systemFill
+            return .darkGray
         @unknown default:
             return .systemFill
         }

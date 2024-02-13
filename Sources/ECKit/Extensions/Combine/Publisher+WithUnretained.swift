@@ -1,17 +1,18 @@
 import Combine
+import CombineExt
 
 // MARK: - Flat Map Latest
 public extension Publisher {
-    func flatMapLatest<T, O: AnyObject>(withUnretained object: O, _ transform: @escaping (O, Output) -> some Publisher<T, Failure>) -> AnyPublisher<T, Failure> {
-        flatMapLatest { [weak object] value -> AnyPublisher<T, Failure> in
-            guard let object else { return .never() }
-            return transform(object, value).eraseToAnyPublisher()
-        }
-        .eraseToAnyPublisher()
-    }
+    func flatMapLatest<O: AnyObject, P: Publisher>(withUnretained object: O, transform: @escaping (O, Output) -> P, customErrorTransform: ((Failure) -> P.Failure)? = nil) -> AnyPublisher<P.Output, P.Failure> {
+        self.catch { error -> AnyPublisher<Output, P.Failure> in
+            if let customErrorTransform {
+                return .error(customErrorTransform(error))
+            }
 
-    func flatMap<T, O: AnyObject>(withUnretained object: O, _ transform: @escaping (O, Output) -> some Publisher<T, Failure>) -> AnyPublisher<T, Failure> {
-        flatMap { [weak object] value -> AnyPublisher<T, Failure> in
+            guard let transformedError = error as? P.Failure else { return .never() }
+            return .error(transformedError)
+        }
+        .flatMapLatest { [weak object] value -> AnyPublisher<P.Output, P.Failure> in
             guard let object else { return .never() }
             return transform(object, value).eraseToAnyPublisher()
         }
@@ -20,16 +21,16 @@ public extension Publisher {
 }
 
 public extension Publisher where Output == Void {
-    func flatMapLatest<T, O: AnyObject>(withUnretained object: O, _ transform: @escaping (O) -> some Publisher<T, Failure>) -> AnyPublisher<T, Failure> {
-        flatMapLatest { [weak object] _ -> AnyPublisher<T, Failure> in
-            guard let object else { return .never() }
-            return transform(object).eraseToAnyPublisher()
-        }
-        .eraseToAnyPublisher()
-    }
+    func flatMapLatest<O: AnyObject, P: Publisher>(withUnretained object: O, transform: @escaping (O) -> P, customErrorTransform: ((Failure) -> P.Failure)? = nil) -> AnyPublisher<P.Output, P.Failure> {
+        self.catch { error -> AnyPublisher<Output, P.Failure> in
+            if let customErrorTransform {
+                return .error(customErrorTransform(error))
+            }
 
-    func flatMap<T, O: AnyObject>(withUnretained object: O, _ transform: @escaping (O) -> some Publisher<T, Failure>) -> AnyPublisher<T, Failure> {
-        flatMap { [weak object] _ -> AnyPublisher<T, Failure> in
+            guard let transformedError = error as? P.Failure else { return .never() }
+            return .error(transformedError)
+        }
+        .flatMapLatest { [weak object] _ -> AnyPublisher<P.Output, P.Failure> in
             guard let object else { return .never() }
             return transform(object).eraseToAnyPublisher()
         }
@@ -92,7 +93,6 @@ public extension Publisher where Output == Void {
             guard let object else { return }
             receiveRequest?(object, request)
         }
-
     }
 }
 
