@@ -16,11 +16,11 @@ public struct ItemStack<Model: Identifiable, ModelContent: View>: View {
     }
 
     public var body: some View {
-        let layout = expanded ? AnyLayout(VStackLayout()) : AnyLayout(ZStackLayout(alignment: .bottom))
+        let layout = expanded ? AnyLayout(VStackLayout()) : AnyLayout(ZStackLayout(alignment: .top))
         layout {
             ForEach(enumerated: models) { index, model in
                 modelContent(model)
-                    .padding(.bottom, expanded ? 0 : CGFloat((models.count - index - 1) * 10))
+                    .padding(.top, expanded || index >= maxDepth ? 0 : CGFloat(index * 10))
                     .scaleEffect(expanded ? 1 : 1.0 - (CGFloat(index) * 0.05))
                     .zIndex(Double(models.count - index))
             }
@@ -30,7 +30,6 @@ public struct ItemStack<Model: Identifiable, ModelContent: View>: View {
                 expanded.toggle()
             }
         }
-        .animation(.default, value: expanded)
     }
 }
 
@@ -50,13 +49,15 @@ struct ItemStack_Previews: PreviewProvider {
             Model(text: "First model", color: .yellow),
             Model(text: "Second model", color: .blue),
             Model(text: "Third model", color: .green),
-            Model(text: "Fourth model", color: .red)
+            Model(text: "Fourth model", color: .red),
+            Model(text: "First model", color: .yellow),
+            Model(text: "Second model", color: .blue),
         ]
 
         var body: some View {
-            VStack {
+            VStack(spacing: 0) {
 
-                ItemStack(models: models, maxDepth: models.count) { model in
+                ItemStack(models: models) { model in
                     Text(model.text)
                         .font(.title)
                         .maxWidth(.infinity)
