@@ -1,14 +1,21 @@
 import SwiftUI
 
 public extension View {
-    /// Applies the given transform if the given condition evaluates to `true`.
-    /// - Parameters:
-    ///   - condition: The condition to evaluate.
-    ///   - transform: The transform to apply to the source `View`.
-    /// - Returns: Either the original `View` or the modified `View` if the condition is `true`.
-    @ViewBuilder func `if`<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {
+    @ViewBuilder 
+    func `if`<TrueContent: View, FalseContent: View>(_ condition: Bool, transformTrue: (Self) -> TrueContent, else transformFalse: ((Self) -> FalseContent)? = nil) -> some View {
         if condition {
-            transform(self)
+            transformTrue(self)
+        } else if let transformFalse {
+            transformFalse(self)
+        } else {
+            self
+        }
+    }
+
+    @ViewBuilder 
+    func `if`<TrueContent: View>(_ condition: Bool, transformTrue: (Self) -> TrueContent) -> some View {
+        if condition {
+            transformTrue(self)
         } else {
             self
         }
