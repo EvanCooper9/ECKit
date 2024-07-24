@@ -34,3 +34,10 @@ public extension Array where Element: Equatable {
 public extension Array where Element: Collection {
     func flattened() -> [Element.Element] { reduce([], +) }
 }
+
+public extension Array {
+    subscript(safe index: Index) -> Element? {
+        guard index < count else { return nil }
+        return self[index]
+    }
+}

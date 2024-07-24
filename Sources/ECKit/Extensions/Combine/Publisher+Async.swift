@@ -3,7 +3,7 @@ import CombineExt
 
 // Modified from https://medium.com/geekculture/from-combine-to-async-await-c08bf1d15b77
 
-public extension AnyPublisher where Failure == Never {
+public extension Publisher where Failure == Never {
     func async() async -> Output {
         await withCheckedContinuation { continuation in
             var cancellable: AnyCancellable?
@@ -17,7 +17,7 @@ public extension AnyPublisher where Failure == Never {
     }
 }
 
-public extension AnyPublisher where Failure == Error {
+public extension Publisher where Failure == Error {
     func async() async throws -> Output {
         try await withCheckedThrowingContinuation { continuation in
             var cancellable: AnyCancellable?

@@ -1,6 +1,7 @@
 import Combine
 import CombineExt
 import ECKit
+import Factory
 
 final class ___FILEBASENAME___: ObservableObject {
 
