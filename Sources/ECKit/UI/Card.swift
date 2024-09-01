@@ -38,7 +38,7 @@ public struct Card<Content: View>: View {
     public var body: some View {
         mainContent
             .if(includeEdgePadding) { $0.padding() }
-            .background(.tertiarySystemBackground)
+            .background(background)
             .cornerRadius(8)
             .shadow(color: .gray.opacity(0.15), radius: 10)
     }
@@ -50,6 +50,18 @@ public struct Card<Content: View>: View {
             HStack(alignment: verticalAlignment, content: content)
         case .vertical:
             VStack(alignment: horizontalAlignment, content: content)
+        }
+    }
+
+    @ViewBuilder
+    private var background: some View {
+        switch colorScheme {
+        case .light:
+            Color.tertiarySystemBackground
+        case .dark:
+            Color.secondarySystemBackground
+        @unknown default:
+            Color.tertiarySystemBackground
         }
     }
 }
@@ -76,9 +88,11 @@ public extension View {
 
 struct Card_Previews: PreviewProvider {
     static var previews: some View {
-        Card {
-            Text("Hello, world!")
-                .padding()
+        List {
+            Card {
+                Text("Hello, world!")
+                    .padding()
+            }
         }
     }
 }
