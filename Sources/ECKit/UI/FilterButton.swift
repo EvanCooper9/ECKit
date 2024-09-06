@@ -1,6 +1,5 @@
 import Popovers
 import SwiftUI
-import SwiftUIX
 
 public struct FilterButton<Content: View>: View {
 

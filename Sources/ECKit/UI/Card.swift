@@ -1,5 +1,4 @@
 import SwiftUI
-import SwiftUIX
 
 public struct Card<Content: View>: View {
 
