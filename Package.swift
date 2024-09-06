@@ -11,18 +11,14 @@ let package = Package(
     dependencies: [
         // ECKit
         .package(url: "https://github.com/CombineCommunity/CombineExt", from: "1.0.0"),
-        .package(url: "https://github.com/kishikawakatsumi/KeychainAccess", from: "4.0.0"),
-        .package(url: "https://github.com/SwiftUIX/SwiftUIX", branch: "master"),
-        .package(url: "https://github.com/aheze/Popovers", branch: "main")
+        .package(url: "https://github.com/EvanCooper9/SwiftUIX", branch: "master"),
     ],
     targets: [
         .target(
             name: "ECKit",
             dependencies: [
                 "CombineExt",
-                "KeychainAccess",
                 "SwiftUIX",
-                "Popovers"
             ],
             exclude: [
                 "swiftgen.yml",
