@@ -52,14 +52,13 @@ public struct Swipeable<Content: View>: View {
                         thresholdReached = drag.translation.width < swipeThreshold
                     }
                     .onEnded { _ in
-                        defer {
-                            thresholdReached = false
+                        if thresholdReached {
+                            onDelete()
+                        } else {
                             withAnimation {
                                 horizontalOffset = 0
                             }
                         }
-                        guard thresholdReached else { return }
-                        onDelete()
                     }
             )
     }
