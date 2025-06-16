@@ -23,9 +23,12 @@ public struct CustomList<Content: View>: View {
 
     public var body: some View {
         ScrollView {
-            content()
-                .maxWidth(.infinity)
-                .maxHeight(.infinity)
+            VStack {
+                content()
+                    .maxWidth(.infinity)
+                    .maxHeight(.infinity)
+            }
+            .padding(.vertical)
         }
         .background(background)
     }

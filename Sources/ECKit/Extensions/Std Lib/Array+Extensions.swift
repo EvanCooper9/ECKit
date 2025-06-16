@@ -37,7 +37,7 @@ public extension Array where Element: Collection {
 
 public extension Array {
     subscript(safe index: Index) -> Element? {
-        guard index < count else { return nil }
+        guard index >= 0, index < count else { return nil }
         return self[index]
     }
 }
