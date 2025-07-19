@@ -13,6 +13,10 @@ public extension Bundle {
         infoDictionary!["CFBundleShortVersionString"] as! String
     }
 
+    var build: String {
+        infoDictionary!["CFBundleVersion"] as! String
+    }
+
     var id: String {
         infoDictionary!["CFBundleIdentifier"] as! String
     }

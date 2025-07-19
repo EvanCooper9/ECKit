@@ -2,18 +2,27 @@ import SwiftUI
 import SwiftUIX
 
 public extension View {
-    @ViewBuilder
     func withLoadingOverlay(isLoading: Bool) -> some View {
-        overlay {
-            if isLoading {
-                ProgressView()
-                    .padding(.extraExtraLarge)
-                    .background(.ultraThinMaterial)
-                    .cornerRadius(10)
+        modifier(LoadingOverlayModifier(loading: isLoading))
+    }
+}
+
+struct LoadingOverlayModifier: ViewModifier {
+
+    let loading: Bool
+
+    func body(content: Content) -> some View {
+        content
+            .overlay {
+                if loading {
+                    ProgressView()
+                        .padding(.extraExtraLarge)
+                        .background(.ultraThinMaterial)
+                        .cornerRadius(10)
+                }
             }
-        }
-        .disabled(isLoading)
-        .allowsHitTesting(!isLoading)
+            .disabled(loading)
+            .allowsHitTesting(!loading)
     }
 }
 
