@@ -16,8 +16,8 @@ struct ___VARIABLE_productName___View: View {
 #if DEBUG
 struct ___VARIABLE_productName___View_Previews: PreviewProvider {
     static var previews: some View {
-        ___VARIABLE_productName___View()
-            .setupMocks()
+        setupMocks()
+        return ___VARIABLE_productName___View()
     }
 }
 #endif
