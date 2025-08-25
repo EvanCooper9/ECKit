@@ -19,6 +19,14 @@ public struct CustomListSection<Content: View, Header: View, Footer: View>: View
         }
     }
 
+    public init(_ header: String, @ViewBuilder content: @escaping () -> Content) where Header == Text, Footer == EmptyView {
+        self.content = content
+        self.header = {
+            Text(header)
+        }
+        self.footer = nil
+    }
+
     public init(@ViewBuilder content: @escaping () -> Content, @ViewBuilder header: @escaping (() -> Header), @ViewBuilder footer: @escaping (() -> Footer)) {
         self.content = content
         self.header = header

@@ -9,7 +9,15 @@ public struct ItemStack<Model: Identifiable, ModelContent: View>: View {
 
     @State private var expanded = false
 
-    public init(models: [Model], maxDepth: Int = 3, modelContent: @escaping (Model) -> ModelContent) {
+    private var shadowColor: Color {
+        if expanded || models.count == 1 {
+            Color.clear
+        } else {
+            Color.gray.opacity(0.25)
+        }
+    }
+
+    public init(models: [Model], maxDepth: Int = 3, @ViewBuilder modelContent: @escaping (Model) -> ModelContent) {
         self.models = models
         self.maxDepth = maxDepth
         self.modelContent = modelContent
@@ -23,6 +31,7 @@ public struct ItemStack<Model: Identifiable, ModelContent: View>: View {
                     .padding(.top, expanded || index >= maxDepth ? 0 : CGFloat(index * 10))
                     .scaleEffect(expanded ? 1 : 1.0 - (CGFloat(index) * 0.05))
                     .zIndex(Double(models.count - index))
+                    .shadow(color: shadowColor, x: 0, y: 5, blur: 10)
             }
         }
         .onTapGesture {
