@@ -11,7 +11,7 @@ let package = Package(
     dependencies: [
         // ECKit
         .package(url: "https://github.com/CombineCommunity/CombineExt", from: "1.0.0"),
-        .package(url: "https://github.com/EvanCooper9/SwiftUIX", branch: "master"),
+        .package(url: "https://github.com/SwiftUIX/SwiftUIX", branch: "master"),
     ],
     targets: [
         .target(
